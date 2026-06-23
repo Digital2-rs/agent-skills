@@ -531,41 +531,6 @@ class Partner extends Model
 }
 ```
 
-### 5.4 No `$fillable` / `$guarded`
-
-We use the **`nunomaduro/essentials`** package as a baseline dependency. Among other defaults (strict models, immutable dates, auto eager loading, `make:action`, opinionated Pint config) it provides **unguarded models** via its `Unguard` configurable, which we enable in `config/essentials.php`. Because models are globally unguarded, **we don't declare `$fillable` or `$guarded`**.
-
-Mass-assignment safety is enforced at the input boundary instead — through validated Form Requests and typed DTOs (see 4.2) — not on the model. So never pass a raw `$request->all()` into `create()`/`update()`; always pass an explicit, validated payload.
-
-```php
-// config/essentials.php
-return [
-    NunoMaduro\Essentials\Configurables\Unguard::class => true,
-    // ...
-];
-```
-
-```php
-// Good — no $fillable/$guarded; input is already validated upstream
-class Address extends Model
-{
-    protected function casts(): array
-    {
-        return ['is_default' => 'boolean'];
-    }
-}
-
-$address = $partner->addresses()->create($data->toArray()); // $data is a validated DTO
-```
-
-```php
-// Bad — redundant $fillable when models are globally unguarded
-class Address extends Model
-{
-    protected $fillable = ['street', 'city', 'postal_code', 'country_code'];
-}
-```
-
 ---
 
 ## 6. General rules

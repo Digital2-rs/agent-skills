@@ -22,7 +22,6 @@ Use Laravel **Boost** tools: `search-docs` (version-specific; broad topic querie
 
 ## Models
 - Casts via `casts()` method (not `$casts`). Local scopes via `#[Scope]` (no `scope` prefix). One trait per line.
-- **No `$fillable`/`$guarded`** — models are unguarded via `nunomaduro/essentials`; safety is at the input boundary.
 
 ## Migrations
 - **No `down()`** (forward-only). `foreignId(...)->index()` **without** `->constrained()`.
