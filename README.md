@@ -6,7 +6,7 @@ Follows the open [Agent Skills](https://agentskills.io) format.
 ## Install via Laravel Boost
 
 ```bash
-php artisan boost:add-skill <owner>/laravel-skills --skill=laravel-conventions
+php artisan boost:add-skill Digital2-rs/agent-skills --skill=laravel-conventions
 # if skills weren't enabled at install time, sync them:
 php artisan boost:install --skills --no-interaction
 ```
