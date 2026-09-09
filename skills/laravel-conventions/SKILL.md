@@ -10,7 +10,7 @@ Follow the project's conventions when writing or changing Laravel/Inertia code. 
 Use Laravel **Boost** tools: `search-docs` (version-specific; broad topic queries, no package names), `database-schema` before touching tables, `tinker`/`database-query` to inspect data. Don't guess APIs.
 
 ## Naming
-- **Actions**: `Verb + Noun + Action` (`CreateAddressAction`), grouped by domain (`Actions/Addresses/`).
+- **Actions**: `Verb + Noun` (`CreateAddress`), grouped by domain (`Actions/Addresses/`).
 - **Controllers**: `Name + Controller`; non-CRUD action → separate **invokable** controller with `__invoke()`. Methods stay within CRUD verbs.
 - **Middleware**: descriptive phrase, **no** `Middleware` suffix. **Services**: named after the system, **no** `Service` suffix. **Jobs**: describe the action, **no** `Job` suffix.
 - **Enums**: `PascalCase` cases; name without suffix.
