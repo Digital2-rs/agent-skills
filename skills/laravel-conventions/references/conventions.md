@@ -22,9 +22,9 @@
 app/
 ├── Actions/
 │   └── Addresses/
-│       ├── CreateAddressAction.php
-│       ├── UpdateAddressAction.php
-│       └── DeleteAddressAction.php
+│       ├── CreateAddress.php
+│       ├── UpdateAddress.php
+│       └── DeleteAddress.php
 ├── Console/
 │   └── Commands/
 │       └── SyncRecordsCommand.php
@@ -108,18 +108,19 @@ resources/
 
 ### 3.1 Actions
 
-An Action is named **verb + noun + `Action` suffix**, in `PascalCase`. Grouped by domain (`Actions/Addresses/`).
+An Action is named **verb + noun, without an `Action` suffix**, in `PascalCase`. Grouped by domain (`Actions/Addresses/`).
 
 ```php
 // Good
-CreateAddressAction
-UpdateAddressAction
-DeleteAddressAction
+CreateAddress
+UpdateAddress
+DeleteAddress
 ```
 
 ```php
-// Bad — no suffix, no verb, or unclear scope
+// Bad — no verb, redundant suffix, or unclear scope
 Address
+CreateAddressAction
 AddressManager
 HandleAddress
 ```
@@ -236,7 +237,7 @@ Any work that mutates data is wrapped in **`DB::transaction()`** so the operatio
 
 ```php
 // Good
-final class CreateAddressAction
+final class CreateAddress
 {
     public function __construct(
         private readonly Geocoder $geocoder,
@@ -266,7 +267,7 @@ final class CreateAddressAction
 
 ```php
 // Bad — multiple public methods, no transaction, returns a redirect
-class CreateAddressAction
+class CreateAddress
 {
     public function handle(array $data) { /* ... */ }
 
@@ -284,10 +285,10 @@ class CreateAddressAction
 
 ```php
 // Good — standalone logic extracted into its own Action class
-final class CreateAddressAction
+final class CreateAddress
 {
     public function __construct(
-        private readonly ResetDefaultAddressesAction $resetDefaults,
+        private readonly ResetDefaultAddresses $resetDefaults,
     ) {}
 
     public function handle(Partner $partner, AddressData $data): Address
@@ -308,7 +309,7 @@ final class CreateAddressAction
 ```php
 // Weaker — non-trivial logic trapped as a protected helper,
 // unavailable to other Actions and harder to test in isolation
-final class CreateAddressAction
+final class CreateAddress
 {
     public function handle(Partner $partner, AddressData $data): Address { /* ... */ }
 
@@ -573,23 +574,23 @@ We define properties via **constructor property promotion** whenever all of them
 
 ```php
 // Good
-final class CreateAddressAction
+final class CreateAddress
 {
     public function __construct(
         private Geocoder $geocoder,
-        private ResetDefaultAddressesAction $resetDefaults,
+        private ResetDefaultAddresses $resetDefaults,
     ) {}
 }
 ```
 
 ```php
 // Bad — properties declared separately and assigned manually
-final class CreateAddressAction
+final class CreateAddress
 {
     private Geocoder $geocoder;
-    private ResetDefaultAddressesAction $resetDefaults;
+    private ResetDefaultAddresses $resetDefaults;
 
-    public function __construct(Geocoder $geocoder, ResetDefaultAddressesAction $resetDefaults)
+    public function __construct(Geocoder $geocoder, ResetDefaultAddresses $resetDefaults)
     {
         $this->geocoder = $geocoder;
         $this->resetDefaults = $resetDefaults;
