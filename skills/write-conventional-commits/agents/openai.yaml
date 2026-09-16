@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conventional Commits"
+  short_description: "Write consistent Conventional Commit messages"
+  default_prompt: "Use $write-conventional-commits to write a Conventional Commit message for my changes."
