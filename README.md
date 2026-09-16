@@ -21,10 +21,13 @@ into your agent directory (e.g. `.claude/skills/laravel-conventions/`), bringing
 laravel-skills/
 ├── README.md
 └── skills/
-    └── laravel-conventions/
-        ├── SKILL.md                 # metadata (name, description) + short instructions
-        └── references/
-            └── conventions.md       # full conventions document (read on-demand)
+    ├── laravel-conventions/
+    │   ├── SKILL.md                 # metadata (name, description) + short instructions
+    │   └── references/
+    │       └── conventions.md       # full conventions document (read on-demand)
+    └── write-conventional-commits/
+        ├── SKILL.md                 # commit-message workflow and rules
+        └── agents/openai.yaml        # skill-list metadata
 ```
 
 ## What's inside
@@ -33,6 +36,9 @@ laravel-skills/
   naming, Actions, DTOs, Query objects, models, migrations, and general code style.
   The full reference (`references/conventions.md`) is read on-demand; the `SKILL.md`
   body holds a condensed version so the agent stays in convention without bloating context.
+- **write-conventional-commits** — select a precise Conventional Commit type and scope,
+  document breaking changes, and produce or review complete commit messages based on the
+  actual diff and repository policy.
 
 ## Companion pieces (not installed by add-skill)
 
